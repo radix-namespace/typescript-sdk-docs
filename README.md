@@ -1,6 +1,8 @@
 # Radix Namespace TypeScript SDK — API Reference
 
-Static documentation for the Radix Namespace TypeScript SDK. Covers domain registration, record management, and other interactions with the Namespace smart contracts on the Radix network.
+Static documentation site for the [Radix Namespace](https://namespace.radix.domains) TypeScript SDK. Covers domain registration, record management, and other interactions with the Namespace smart contracts on the Radix network.
+
+**Hosted Docs:** https://radix-namespace.github.io/typescript-sdk-docs/
 
 ## Running Locally
 
