@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radix Namespace SDK — API Reference</title>
+  <meta name="description" content="API documentation for the Radix Namespace TypeScript SDK. Register domains, manage records, and more on the Radix network.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="layout">
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+    </div>
+    <div>
+      <div class="sidebar-title">Namespace SDK</div>
+      <div class="sidebar-subtitle">API Reference</div>
+    </div>
+  </div>
+
+  <div class="sidebar-search">
+    <div class="sidebar-search-wrapper">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="sidebar-search" placeholder="Search methods...">
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <!-- Getting Started -->
+    <div class="sidebar-category open">
+      <button class="sidebar-category-title">
+        Getting Started
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+      <div class="sidebar-links">
+        <a class="sidebar-link" href="#installation">Installation</a>
+        <a class="sidebar-link" href="#initialization">Initialization</a>
+        <a class="sidebar-link" href="#response-format">Response Format</a>
+      </div>
+    </div>
+
+    <!-- Accounts -->
+    <div class="sidebar-category">
+      <button class="sidebar-category-title">
+        Accounts
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+      <div class="sidebar-links">
+        <a class="sidebar-link" href="#getAccountDomains">getAccountDomains <span class="badge badge-query">Query</span></a>
+        <a class="sidebar-link" href="#getAccountImportDomains">getAccountImportDomains <span class="badge badge-query">Query</span></a>
+        <a class="sidebar-link" href="#checkAuthenticity">checkAuthenticity <span class="badge badge-query">Query</span></a>
+        <a class="sidebar-link" href="#getAccountSettings">getAccountSettings <span class="badge badge-query">Query</span></a>
+        <a class="sidebar-link" href="#updateAccountSettings">updateAccountSettings <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#resolveAccountDomain">resolveAccountDomain <span class="badge badge-query">Query</span></a>
+      </div>
+    </div>
+
+    <!-- Domains -->
+    <div class="sidebar-category">
+      <button class="sidebar-category-title">
+        Domains
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+      <div class="sidebar-links">
+        <a class="sidebar-link" href="#getDomainStatus">getDomainStatus <span class="badge badge-query">Query</span></a>
+        <a class="sidebar-link" href="#getDomainDetails">getDomainDetails <span class="badge badge-query">Query</span></a>
+        <a class="sidebar-link" href="#registerDomain">registerDomain <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#claimReservedDomain">claimReservedDomain <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#claimFromLocker">claimFromLocker <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#activateDomain">activateDomain <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#transferDomain">transferDomain <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#unbondDomain">unbondDomain <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#rebondDomain">rebondDomain <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#importAcceptedDomain">importAcceptedDomain <span class="badge badge-mutation">Tx</span></a>
+      </div>
+    </div>
+
+    <!-- Subdomains -->
+    <div class="sidebar-category">
+      <button class="sidebar-category-title">
+        Subdomains
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+      <div class="sidebar-links">
+        <a class="sidebar-link" href="#getSubdomains">getSubdomains <span class="badge badge-query">Query</span></a>
+        <a class="sidebar-link" href="#createSubdomain">createSubdomain <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#deleteSubdomain">deleteSubdomain <span class="badge badge-mutation">Tx</span></a>
+      </div>
+    </div>
+
+    <!-- Records -->
+    <div class="sidebar-category">
+      <button class="sidebar-category-title">
+        Records
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+      <div class="sidebar-links">
+        <a class="sidebar-link" href="#getRecords">getRecords <span class="badge badge-query">Query</span></a>
+        <a class="sidebar-link" href="#resolveRecord">resolveRecord <span class="badge badge-query">Query</span></a>
+        <a class="sidebar-link" href="#createRecord">createRecord <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#amendRecord">amendRecord <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#deleteRecord">deleteRecord <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#deleteRecordById">deleteRecordById <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#createRecords">createRecords <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#deleteRecords">deleteRecords <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#deleteContextRecords">deleteContextRecords <span class="badge badge-mutation">Tx</span></a>
+      </div>
+    </div>
+
+    <!-- Subregistry -->
+    <div class="sidebar-category">
+      <button class="sidebar-category-title">
+        Subregistry
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+      <div class="sidebar-links">
+        <a class="sidebar-link" href="#updateSubregistryIcon">updateSubregistryIcon <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#updateSubregistryDappDefinition">updateSubregistryDappDef <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#updateDomainResource">updateDomainResource <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#replaceSubregistry">replaceSubregistry <span class="badge badge-mutation">Tx</span></a>
+      </div>
+    </div>
+
+    <!-- Registrars -->
+    <div class="sidebar-category">
+      <button class="sidebar-category-title">
+        Registrars
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+      <div class="sidebar-links">
+        <a class="sidebar-link" href="#getAllRegistrars">getAllRegistrars <span class="badge badge-query">Query</span></a>
+        <a class="sidebar-link" href="#getRegistrarDetails">getRegistrarDetails <span class="badge badge-query">Query</span></a>
+        <a class="sidebar-link" href="#getRegistrarStats">getRegistrarStats <span class="badge badge-query">Query</span></a>
+        <a class="sidebar-link" href="#getRegistrarFeeBalances">getRegistrarFeeBalances <span class="badge badge-query">Query</span></a>
+        <a class="sidebar-link" href="#registerAsRegistrar">registerAsRegistrar <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#updateRegistrar">updateRegistrar <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#burnRegistrarBadge">burnRegistrarBadge <span class="badge badge-mutation">Tx</span></a>
+        <a class="sidebar-link" href="#withdrawRegistrarFees">withdrawRegistrarFees <span class="badge badge-mutation">Tx</span></a>
+      </div>
+    </div>
+
+    <!-- Utilities -->
+    <div class="sidebar-category">
+      <button class="sidebar-category-title">
+        Utilities
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+      <div class="sidebar-links">
+        <a class="sidebar-link" href="#getCostBreakdown">getCostBreakdown <span class="badge badge-util">Util</span></a>
+        <a class="sidebar-link" href="#getAcceptedBondTokens">getAcceptedBondTokens <span class="badge badge-util">Util</span></a>
+        <a class="sidebar-link" href="#getAccountBondBalances">getAccountBondBalances <span class="badge badge-util">Util</span></a>
+        <a class="sidebar-link" href="#checkAccountBondAffordability">checkBondAffordability <span class="badge badge-util">Util</span></a>
+        <a class="sidebar-link" href="#validateDomain">validateDomain <span class="badge badge-util">Util</span></a>
+        <a class="sidebar-link" href="#validateSubdomain">validateSubdomain <span class="badge badge-util">Util</span></a>
+        <a class="sidebar-link" href="#validateAccountAddress">validateAccountAddress <span class="badge badge-util">Util</span></a>
+        <a class="sidebar-link" href="#getRootFromSubdomain">getRootFromSubdomain <span class="badge badge-util">Util</span></a>
+        <a class="sidebar-link" href="#isSubdomain">isSubdomain <span class="badge badge-util">Util</span></a>
+        <a class="sidebar-link" href="#isRootDomain">isRootDomain <span class="badge badge-util">Util</span></a>
+        <a class="sidebar-link" href="#clearAllCaches">clearAllCaches <span class="badge badge-cache">Cache</span></a>
+      </div>
+    </div>
+
+    <!-- Types -->
+    <div class="sidebar-category">
+      <button class="sidebar-category-title">
+        Types Reference
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+      <div class="sidebar-links">
+        <a class="sidebar-link" href="#types-reference">All Types</a>
+      </div>
+    </div>
+  </nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- ===== MAIN ===== -->
+<main class="main">
+  <header class="main-header">
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </button>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+      <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      <svg id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </header>
+
+  <div class="main-content">
+
+    <!-- Hero -->
+    <div class="hero">
+      <h1>Radix Namespace SDK</h1>
+      <p>TypeScript SDK for registering domains, managing records, and building on the Radix Namespace protocol. This reference covers every public method, its parameters, response shapes, and usage examples.</p>
+    </div>
+
+    <div id="no-results" class="no-results">No methods match your search.</div>
+
+    <!-- ==================== GETTING STARTED ==================== -->
+    <div class="section" id="getting-started">
+      <h2 class="section-title">Getting Started</h2>
+      <p class="section-desc">Install the SDK and create your first instance.</p>
+
+      <div class="method-card" id="installation" data-search="installation install npm">
+        <div class="method-header"><span class="method-name">Installation</span></div>
+        <div class="method-body">
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="code-block-label">Terminal</span>
+              <button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+            </div>
+            <pre>npm install @radixnamespace/typescript-sdk</pre>
+          </div>
+          <p class="method-desc">Peer dependencies: <span class="inline-code">@radixdlt/radix-dapp-toolkit</span> and <span class="inline-code">@radixdlt/babylon-gateway-api-sdk</span> must also be installed in your project.</p>
+        </div>
+      </div>
+
+      <div class="method-card" id="initialization" data-search="initialization init setup constructor">
+        <div class="method-header"><span class="method-name">Initialization</span></div>
+        <div class="method-body">
+          <p class="method-desc">Create an SDK instance with your Radix Dapp Toolkit and target network. The SDK auto-discovers on-ledger component addresses on first use.</p>
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-block-label">TypeScript</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+            <pre><span class="hl-kw">import</span> NamespaceSDK <span class="hl-kw">from</span> <span class="hl-str">'@radixnamespace/typescript-sdk'</span>;
+<span class="hl-kw">import</span> { RadixDappToolkit } <span class="hl-kw">from</span> <span class="hl-str">'@radixdlt/radix-dapp-toolkit'</span>;
+
+<span class="hl-kw">const</span> rdt = RadixDappToolkit({ <span class="hl-cm">/* your config */</span> });
+
+<span class="hl-kw">const</span> namespace = <span class="hl-kw">new</span> <span class="hl-fn">NamespaceSDK</span>({
+  <span class="hl-prop">rdt</span>,
+  <span class="hl-prop">network</span>: <span class="hl-str">'stokenet'</span>  <span class="hl-cm">// or 'mainnet'</span>
+});</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="method-card" id="response-format" data-search="response format error success sdkresponse sdktransactionresponse">
+        <div class="method-header"><span class="method-name">Response Format</span></div>
+        <div class="method-body">
+          <p class="method-desc">All SDK methods return a discriminated union. <strong>Query methods</strong> return <span class="inline-code">SdkResponseT&lt;T&gt;</span> and <strong>transaction methods</strong> return <span class="inline-code">SdkTransactionResponseT&lt;T&gt;</span>. Check for the presence of <span class="inline-code">data</span>/<span class="inline-code">feedback</span> or <span class="inline-code">errors</span> to determine success.</p>
+
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-block-label">Query Response Shape</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+            <pre><span class="hl-cm">// Success</span>
+{ <span class="hl-prop">data</span>: T }
+
+<span class="hl-cm">// Error</span>
+{ <span class="hl-prop">errors</span>: [{ <span class="hl-prop">code</span>: <span class="hl-str">"ERROR_CODE"</span>, <span class="hl-prop">error</span>: <span class="hl-str">"Human message"</span>, <span class="hl-prop">verbose</span>: <span class="hl-str">"Details"</span> | <span class="hl-bool">null</span> }] }</pre>
+          </div>
+
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-block-label">Transaction Response Shape</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+            <pre><span class="hl-cm">// Success</span>
+{ <span class="hl-prop">feedback</span>: { <span class="hl-prop">messages</span>: [{ <span class="hl-prop">code</span>: <span class="hl-str">"TX_SUCCESS"</span>, <span class="hl-prop">details</span>: <span class="hl-str">"..."</span> | <span class="hl-bool">null</span> }] } }
+
+<span class="hl-cm">// Error</span>
+{ <span class="hl-prop">errors</span>: [{ <span class="hl-prop">code</span>: <span class="hl-str">"ERROR_CODE"</span>, <span class="hl-prop">error</span>: <span class="hl-str">"Human message"</span>, <span class="hl-prop">verbose</span>: <span class="hl-str">"Details"</span> | <span class="hl-bool">null</span> }] }</pre>
+          </div>
+
+          <div class="callout callout-info"><strong>Tip:</strong> Transaction methods accept an optional <span class="inline-code">callbacks</span> parameter with hooks: <span class="inline-code">onInit</span>, <span class="inline-code">onAppApproved</span>, <span class="inline-code">onIntentReceipt</span>, <span class="inline-code">onSuccess</span>, <span class="inline-code">onFail</span>.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ACCOUNTS ==================== -->
+    <div class="section" id="section-accounts">
+      <h2 class="section-title">Accounts</h2>
+      <p class="section-desc">Query account-owned domains, settings, and perform reverse resolution.</p>
+
+      <!-- getAccountDomains -->
+      <div class="method-card" id="getAccountDomains" data-search="getaccountdomains account domains list owned">
+        <div class="method-header">
+          <span class="method-name">getAccountDomains()</span>
+          <span class="badge badge-query">Query</span>
+        </div>
+        <div class="method-body">
+          <p class="method-desc">Retrieve all domains owned by a specific account address, with pagination support.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">The Radix account address</td></tr>
+            <tr><td><span class="param-name">pagination</span></td><td><span class="param-type">{ page?: number }</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Page number (1-indexed, defaults to 1)</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;PaginatedDomainsResponseI&gt;</div>
+          <div class="response-title">Responses</div>
+          <div class="response-tabs">
+            <button class="response-tab active" data-target="getAccountDomains-success">Success</button>
+            <button class="response-tab" data-target="getAccountDomains-error">Error</button>
+          </div>
+          <div class="response-panel active" id="getAccountDomains-success">
+            <div class="code-block"><div class="code-block-header"><span class="code-block-label">Success</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre>{
+  <span class="hl-prop">"data"</span>: {
+    <span class="hl-prop">"domains"</span>: [{
+      <span class="hl-prop">"id"</span>: <span class="hl-str">"[abcdef123456...]"</span>,
+      <span class="hl-prop">"name"</span>: <span class="hl-str">"example.xrd"</span>,
+      <span class="hl-prop">"current_activated_owner"</span>: <span class="hl-str">"account_rdx..."</span>,
+      <span class="hl-prop">"bond"</span>: {
+        <span class="hl-prop">"resource"</span>: { <span class="hl-prop">"address"</span>: <span class="hl-str">"resource_rdx..."</span>, <span class="hl-prop">"name"</span>: <span class="hl-str">"Fake USD"</span>, <span class="hl-prop">"symbol"</span>: <span class="hl-str">"fUSD"</span>, ... },
+        <span class="hl-prop">"amount"</span>: <span class="hl-str">"250"</span>
+      },
+      <span class="hl-prop">"subregistry_component_address"</span>: <span class="hl-str">"component_rdx..."</span>,
+      <span class="hl-prop">"key_image_url"</span>: <span class="hl-str">"https://..."</span>,
+      <span class="hl-prop">"created_timestamp"</span>: <span class="hl-num">1700000000000</span>,
+      <span class="hl-prop">"issuer_registrar_id"</span>: <span class="hl-str">"#1#"</span>,
+      <span class="hl-prop">"subdomain_count"</span>: <span class="hl-num">3</span>,
+      <span class="hl-prop">"record_count"</span>: <span class="hl-num">5</span>
+    }],
+    <span class="hl-prop">"pagination"</span>: { <span class="hl-prop">"next_page"</span>: <span class="hl-num">2</span>, <span class="hl-prop">"previous_page"</span>: <span class="hl-bool">null</span>, <span class="hl-prop">"total_count"</span>: <span class="hl-num">15</span>, <span class="hl-prop">"current_page_count"</span>: <span class="hl-num">10</span> }
+  }
+}</pre></div>
+          </div>
+          <div class="response-panel" id="getAccountDomains-error">
+            <div class="code-block"><div class="code-block-header"><span class="code-block-label">Error</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre>{
+  <span class="hl-prop">"errors"</span>: [{
+    <span class="hl-prop">"code"</span>: <span class="hl-str">"INVALID_ACCOUNT_ADDRESS"</span>,
+    <span class="hl-prop">"error"</span>: <span class="hl-str">"The provided account address is invalid."</span>,
+    <span class="hl-prop">"verbose"</span>: <span class="hl-bool">null</span>
+  }]
+}</pre></div>
+          </div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">getAccountDomains</span>({
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>,
+  <span class="hl-prop">pagination</span>: { <span class="hl-prop">page</span>: <span class="hl-num">1</span> }
+});
+
+<span class="hl-kw">if</span> (result.data) {
+  result.data.domains.<span class="hl-fn">forEach</span>(d =&gt; console.<span class="hl-fn">log</span>(d.name));
+}</pre></div>
+        </div>
+      </div>
+
+      <!-- getAccountImportDomains -->
+      <div class="method-card" id="getAccountImportDomains" data-search="getaccountimportdomains import domains account">
+        <div class="method-header"><span class="method-name">getAccountImportDomains()</span><span class="badge badge-query">Query</span></div>
+        <div class="method-body">
+          <p class="method-desc">Retrieve import domains owned by an account. These are domains eligible for importing into Radix Namespace via <span class="inline-code">importAcceptedDomain()</span>.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">The Radix account address</td></tr>
+            <tr><td><span class="param-name">pagination</span></td><td><span class="param-type">{ page?: number }</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Page number (1-indexed)</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;PaginatedImportDomainsI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">getAccountImportDomains</span>({
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>
+});
+
+<span class="hl-kw">if</span> (result.data) {
+  result.data.domains.<span class="hl-fn">forEach</span>(d =&gt; console.<span class="hl-fn">log</span>(d.name, d.deposit_amount));
+}</pre></div>
+        </div>
+      </div>
+
+      <!-- checkAuthenticity -->
+      <div class="method-card" id="checkAuthenticity" data-search="checkauthenticity verify ownership authentic">
+        <div class="method-header"><span class="method-name">checkAuthenticity()</span><span class="badge badge-query">Query</span></div>
+        <div class="method-body">
+          <p class="method-desc">Verify that a domain is authentically owned by a specific account. Returns <span class="inline-code">{ isAuthentic: boolean }</span>.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain name (e.g., "example.xrd")</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Account address to verify against</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;{ isAuthentic: boolean }&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">checkAuthenticity</span>({
+  <span class="hl-prop">domain</span>: <span class="hl-str">'example.xrd'</span>,
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>
+});
+
+console.<span class="hl-fn">log</span>(result.data?.isAuthentic); <span class="hl-cm">// true or false</span></pre></div>
+        </div>
+      </div>
+
+      <!-- getAccountSettings -->
+      <div class="method-card" id="getAccountSettings" data-search="getaccountsettings primary domain discovery settings">
+        <div class="method-header"><span class="method-name">getAccountSettings()</span><span class="badge badge-query">Query</span></div>
+        <div class="method-body">
+          <p class="method-desc">Get primary domain and discovery settings for an account. Returns <span class="inline-code">null</span> if no settings have been configured.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">The account address</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;AccountSettingsResultI | null&gt;</div>
+          <div class="response-title">Responses</div>
+          <div class="response-tabs">
+            <button class="response-tab active" data-target="getAccountSettings-success">Success</button>
+            <button class="response-tab" data-target="getAccountSettings-null">No Settings</button>
+          </div>
+          <div class="response-panel active" id="getAccountSettings-success">
+            <div class="code-block"><div class="code-block-header"><span class="code-block-label">Success</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre>{
+  <span class="hl-prop">"data"</span>: {
+    <span class="hl-prop">"primaryDomain"</span>: <span class="hl-str">"example.xrd"</span>,
+    <span class="hl-prop">"discoveryEnabled"</span>: <span class="hl-bool">true</span>,
+    <span class="hl-prop">"isAuthentic"</span>: <span class="hl-bool">true</span>,
+    <span class="hl-prop">"accountAddress"</span>: <span class="hl-str">"account_rdx..."</span>,
+    <span class="hl-prop">"domainDetails"</span>: { <span class="hl-cm">/* DomainDataI */</span> }
+  }
+}</pre></div>
+          </div>
+          <div class="response-panel" id="getAccountSettings-null">
+            <div class="code-block"><div class="code-block-header"><span class="code-block-label">No Settings</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre>{ <span class="hl-prop">"data"</span>: <span class="hl-bool">null</span> }</pre></div>
+          </div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">getAccountSettings</span>({
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>
+});
+
+<span class="hl-kw">if</span> (result.data) {
+  console.<span class="hl-fn">log</span>(<span class="hl-str">`Primary: ${result.data.primaryDomain}`</span>);
+  console.<span class="hl-fn">log</span>(<span class="hl-str">`Discovery: ${result.data.discoveryEnabled}`</span>);
+}</pre></div>
+        </div>
+      </div>
+
+      <!-- updateAccountSettings -->
+      <div class="method-card" id="updateAccountSettings" data-search="updateaccountsettings primary domain discovery update">
+        <div class="method-header"><span class="method-name">updateAccountSettings()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Update primary domain and/or discovery visibility for your account. Requires wallet connection.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Your account address</td></tr>
+            <tr><td><span class="param-name">primaryDomain</span></td><td><span class="param-type">string</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Domain to set as primary</td></tr>
+            <tr><td><span class="param-name">enableDiscovery</span></td><td><span class="param-type">boolean</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Enable reverse-resolution discovery</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Transaction lifecycle hooks</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">updateAccountSettings</span>({
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>,
+  <span class="hl-prop">primaryDomain</span>: <span class="hl-str">'example.xrd'</span>,
+  <span class="hl-prop">enableDiscovery</span>: <span class="hl-bool">true</span>
+});</pre></div>
+        </div>
+      </div>
+
+      <!-- resolveAccountDomain -->
+      <div class="method-card" id="resolveAccountDomain" data-search="resolveaccountdomain reverse resolve address to domain">
+        <div class="method-header"><span class="method-name">resolveAccountDomain()</span><span class="badge badge-query">Query</span></div>
+        <div class="method-body">
+          <p class="method-desc">Reverse-resolve an account address to its primary domain name. Returns <span class="inline-code">null</span> if no primary domain is set or discovery is disabled.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">The account address to resolve</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;string | null&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">resolveAccountDomain</span>({
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>
+});
+
+console.<span class="hl-fn">log</span>(result.data); <span class="hl-cm">// "example.xrd" or null</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== DOMAINS ==================== -->
+    <div class="section" id="section-domains">
+      <h2 class="section-title">Domains</h2>
+      <p class="section-desc">Query domain status, register, activate, transfer, and manage domain lifecycle.</p>
+
+      <!-- getDomainStatus -->
+      <div class="method-card" id="getDomainStatus" data-search="getdomainstatus status availability available taken reserved">
+        <div class="method-header"><span class="method-name">getDomainStatus()</span><span class="badge badge-query">Query</span></div>
+        <div class="method-body">
+          <p class="method-desc">Check the availability status of a domain. Returns <span class="inline-code">"available"</span>, <span class="inline-code">"taken"</span>, or <span class="inline-code">"reserved"</span>, along with the required bond units.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain name (e.g., "example.xrd")</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;DomainAttributesResponseT&gt;</div>
+          <div class="response-title">Responses</div>
+          <div class="response-tabs">
+            <button class="response-tab active" data-target="getDomainStatus-success">Success</button>
+            <button class="response-tab" data-target="getDomainStatus-error">Error</button>
+          </div>
+          <div class="response-panel active" id="getDomainStatus-success">
+            <div class="code-block"><div class="code-block-header"><span class="code-block-label">Success</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre>{
+  <span class="hl-prop">"data"</span>: {
+    <span class="hl-prop">"domain"</span>: <span class="hl-str">"example.xrd"</span>,
+    <span class="hl-prop">"status"</span>: <span class="hl-str">"available"</span>,
+    <span class="hl-prop">"required_bond_units"</span>: <span class="hl-str">"120"</span>,
+    <span class="hl-prop">"reserved_for"</span>: <span class="hl-bool">undefined</span>
+  }
+}</pre></div>
+          </div>
+          <div class="response-panel" id="getDomainStatus-error">
+            <div class="code-block"><div class="code-block-header"><span class="code-block-label">Error</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre>{
+  <span class="hl-prop">"errors"</span>: [{
+    <span class="hl-prop">"code"</span>: <span class="hl-str">"INVALID_DOMAIN"</span>,
+    <span class="hl-prop">"error"</span>: <span class="hl-str">"The domain name is invalid."</span>,
+    <span class="hl-prop">"verbose"</span>: <span class="hl-str">"Domain must end with .xrd"</span>
+  }]
+}</pre></div>
+          </div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">getDomainStatus</span>({
+  <span class="hl-prop">domain</span>: <span class="hl-str">'example.xrd'</span>
+});
+
+<span class="hl-kw">if</span> (result.data?.status === <span class="hl-str">'available'</span>) {
+  console.<span class="hl-fn">log</span>(<span class="hl-str">`Bond required: ${result.data.required_bond_units} units`</span>);
+}</pre></div>
+        </div>
+      </div>
+
+      <!-- getDomainDetails -->
+      <div class="method-card" id="getDomainDetails" data-search="getdomaindetails details owner bond subregistry">
+        <div class="method-header"><span class="method-name">getDomainDetails()</span><span class="badge badge-query">Query</span></div>
+        <div class="method-body">
+          <p class="method-desc">Get comprehensive details about a domain including owner, bond information, subregistry address, and enrichment data. Works for both root domains and subdomains.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain or subdomain name</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;DomainDataI | SubDomainDataI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">getDomainDetails</span>({
+  <span class="hl-prop">domain</span>: <span class="hl-str">'example.xrd'</span>
+});
+
+<span class="hl-kw">if</span> (result.data) {
+  console.<span class="hl-fn">log</span>(<span class="hl-str">`Owner: ${result.data.current_activated_owner}`</span>);
+  console.<span class="hl-fn">log</span>(<span class="hl-str">`Bond: ${result.data.bond.amount} ${result.data.bond.resource.symbol}`</span>);
+}</pre></div>
+        </div>
+      </div>
+
+      <!-- registerDomain -->
+      <div class="method-card" id="registerDomain" data-search="registerdomain register new domain registrar payment">
+        <div class="method-header"><span class="method-name">registerDomain()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Register a new domain through a specified registrar. The bond amount is determined by domain length, and the registrar fee is added on top.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain name to register</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Your account address</td></tr>
+            <tr><td><span class="param-name">registrarId</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Registrar badge ID</td></tr>
+            <tr><td><span class="param-name">paymentResource</span></td><td><span class="param-type">string</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Payment resource address (defaults to first accepted)</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Transaction lifecycle hooks</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">registerDomain</span>({
+  <span class="hl-prop">domain</span>: <span class="hl-str">'mydomain.xrd'</span>,
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>,
+  <span class="hl-prop">registrarId</span>: <span class="hl-str">'1'</span>,
+  <span class="hl-prop">callbacks</span>: {
+    <span class="hl-fn">onSuccess</span>: () =&gt; console.<span class="hl-fn">log</span>(<span class="hl-str">'Registered!'</span>)
+  }
+});</pre></div>
+        </div>
+      </div>
+
+      <!-- claimReservedDomain -->
+      <div class="method-card" id="claimReservedDomain" data-search="claimreserveddomain claim reserved domain claimant">
+        <div class="method-header"><span class="method-name">claimReservedDomain()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Claim a domain that has been reserved for your account. Only the designated claimant can claim it. No registrar is needed.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Reserved domain name to claim</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Claimant account (must match reservation)</td></tr>
+            <tr><td><span class="param-name">paymentResource</span></td><td><span class="param-type">string</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Payment resource (defaults to first accepted)</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Transaction lifecycle hooks</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">claimReservedDomain</span>({
+  <span class="hl-prop">domain</span>: <span class="hl-str">'reserved.xrd'</span>,
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>
+});</pre></div>
+        </div>
+      </div>
+
+      <!-- claimFromLocker -->
+      <div class="method-card" id="claimFromLocker" data-search="claimfromlocker claim locker nft account">
+        <div class="method-header"><span class="method-name">claimFromLocker()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Claim domain NFTs stored in the Radix Namespace AccountLocker. Needed when a reserved domain claim's direct deposit was rejected by account deposit rules. Omit <span class="inline-code">nftIds</span> to claim all stored NFTs (up to 100).</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Account to claim NFTs for</td></tr>
+            <tr><td><span class="param-name">nftIds</span></td><td><span class="param-type">string[]</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Specific NFT IDs to claim (omit for all)</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Transaction lifecycle hooks</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-cm">// Claim all stored NFTs</span>
+<span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">claimFromLocker</span>({
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>
+});
+
+<span class="hl-cm">// Or claim specific NFTs</span>
+<span class="hl-kw">const</span> result2 = <span class="hl-kw">await</span> namespace.<span class="hl-fn">claimFromLocker</span>({
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>,
+  <span class="hl-prop">nftIds</span>: [<span class="hl-str">'[abc123...]'</span>, <span class="hl-str">'[def456...]'</span>]
+});</pre></div>
+        </div>
+      </div>
+
+      <!-- activateDomain -->
+      <div class="method-card" id="activateDomain" data-search="activatedomain activate enable records">
+        <div class="method-header"><span class="method-name">activateDomain()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Activate a registered domain to enable record management and subdomain operations. Must be called before records can be created.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain name to activate</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Owner account address</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Transaction lifecycle hooks</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">activateDomain</span>({
+  <span class="hl-prop">domain</span>: <span class="hl-str">'example.xrd'</span>,
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>
+});</pre></div>
+        </div>
+      </div>
+
+      <!-- transferDomain -->
+      <div class="method-card" id="transferDomain" data-search="transferdomain transfer ownership destination subdomains records">
+        <div class="method-header"><span class="method-name">transferDomain()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Transfer domain ownership to another account. Optionally include subdomains and/or records in the transfer.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain to transfer</td></tr>
+            <tr><td><span class="param-name">fromAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Current owner address</td></tr>
+            <tr><td><span class="param-name">destinationAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Recipient account address</td></tr>
+            <tr><td><span class="param-name">preferences</span></td><td><span class="param-type">{ subdomains?: boolean, records?: boolean }</span></td><td><span class="param-optional">No</span></td><td class="param-desc">What to include in the transfer</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Transaction lifecycle hooks</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">transferDomain</span>({
+  <span class="hl-prop">domain</span>: <span class="hl-str">'example.xrd'</span>,
+  <span class="hl-prop">fromAddress</span>: <span class="hl-str">'account_rdx_sender...'</span>,
+  <span class="hl-prop">destinationAddress</span>: <span class="hl-str">'account_rdx_recipient...'</span>,
+  <span class="hl-prop">preferences</span>: { <span class="hl-prop">subdomains</span>: <span class="hl-bool">true</span>, <span class="hl-prop">records</span>: <span class="hl-bool">true</span> }
+});</pre></div>
+        </div>
+      </div>
+
+      <!-- unbondDomain -->
+      <div class="method-card" id="unbondDomain" data-search="unbonddomain unbond withdraw bond deregister">
+        <div class="method-header"><span class="method-name">unbondDomain()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Unbond a domain and withdraw the bond payment. The domain name becomes available for registration again. Optionally preserve subregistry data.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain to unbond</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Owner account address</td></tr>
+            <tr><td><span class="param-name">preserveSubregistryData</span></td><td><span class="param-type">boolean</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Keep subdomains/records (default: false)</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Transaction lifecycle hooks</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">unbondDomain</span>({
+  <span class="hl-prop">domain</span>: <span class="hl-str">'example.xrd'</span>,
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>
+});</pre></div>
+        </div>
+      </div>
+
+      <!-- rebondDomain -->
+      <div class="method-card" id="rebondDomain" data-search="rebonddomain rebond swap bond token resource">
+        <div class="method-header"><span class="method-name">rebondDomain()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Swap the bond resource for a domain to a different accepted token. The original bond is returned and replaced with the new resource.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain to rebond</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Owner account address</td></tr>
+            <tr><td><span class="param-name">newPaymentResource</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">New bond token resource address</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Transaction lifecycle hooks</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">rebondDomain</span>({
+  <span class="hl-prop">domain</span>: <span class="hl-str">'example.xrd'</span>,
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>,
+  <span class="hl-prop">newPaymentResource</span>: <span class="hl-str">'resource_rdx...'</span>
+});</pre></div>
+        </div>
+      </div>
+
+      <!-- importAcceptedDomain -->
+      <div class="method-card" id="importAcceptedDomain" data-search="importaccepteddomain import domain migrate">
+        <div class="method-header"><span class="method-name">importAcceptedDomain()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Import an accepted domain into Radix Namespace. The account must hold the import domain NFT.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Import domain name</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Account holding the import NFT</td></tr>
+            <tr><td><span class="param-name">paymentResource</span></td><td><span class="param-type">string</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Payment resource for import bond</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Transaction lifecycle hooks</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">importAcceptedDomain</span>({
+  <span class="hl-prop">domain</span>: <span class="hl-str">'imported.xrd'</span>,
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>
+});</pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SUBDOMAINS ==================== -->
+    <div class="section" id="section-subdomains">
+      <h2 class="section-title">Subdomains</h2>
+      <p class="section-desc">Create, list, and delete subdomains under a parent domain.</p>
+
+      <div class="method-card" id="getSubdomains" data-search="getsubdomains list subdomains parent">
+        <div class="method-header"><span class="method-name">getSubdomains()</span><span class="badge badge-query">Query</span></div>
+        <div class="method-body">
+          <p class="method-desc">List all subdomains for a parent domain, with pagination.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Parent domain name</td></tr>
+            <tr><td><span class="param-name">pagination</span></td><td><span class="param-type">{ page?: number }</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Page number</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;PaginatedSubdomainsResponseI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">getSubdomains</span>({ <span class="hl-prop">domain</span>: <span class="hl-str">'example.xrd'</span> });
+
+result.data?.subdomains.<span class="hl-fn">forEach</span>(s =&gt; console.<span class="hl-fn">log</span>(s.full_name));</pre></div>
+        </div>
+      </div>
+
+      <div class="method-card" id="createSubdomain" data-search="createsubdomain create subdomain">
+        <div class="method-header"><span class="method-name">createSubdomain()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Create a new subdomain under an existing domain you own.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">subdomain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Full subdomain (e.g., "blog.example.xrd")</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Parent domain owner address</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Transaction lifecycle hooks</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">createSubdomain</span>({
+  <span class="hl-prop">subdomain</span>: <span class="hl-str">'blog.example.xrd'</span>,
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>
+});</pre></div>
+        </div>
+      </div>
+
+      <div class="method-card" id="deleteSubdomain" data-search="deletesubdomain delete remove subdomain">
+        <div class="method-header"><span class="method-name">deleteSubdomain()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Remove a subdomain from the parent domain.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">subdomain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Full subdomain name</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Parent domain owner address</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Transaction lifecycle hooks</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">deleteSubdomain</span>({
+  <span class="hl-prop">subdomain</span>: <span class="hl-str">'blog.example.xrd'</span>,
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>
+});</pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== RECORDS ==================== -->
+    <div class="section" id="section-records">
+      <h2 class="section-title">Records</h2>
+      <p class="section-desc">Records are context-directive-value triplets stored in a domain's subregistry. Contexts include "receivers", "social", "navigation", and custom strings.</p>
+
+      <div class="method-card" id="getRecords" data-search="getrecords list records domain">
+        <div class="method-header"><span class="method-name">getRecords()</span><span class="badge badge-query">Query</span></div>
+        <div class="method-body">
+          <p class="method-desc">Retrieve all records for a domain, paginated.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain name</td></tr>
+            <tr><td><span class="param-name">pagination</span></td><td><span class="param-type">{ page?: number }</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Page number</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;PaginatedRecordsResponseI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">getRecords</span>({ <span class="hl-prop">domain</span>: <span class="hl-str">'example.xrd'</span> });
+
+result.data?.records.<span class="hl-fn">forEach</span>(r =&gt;
+  console.<span class="hl-fn">log</span>(<span class="hl-str">`${r.context}:${r.directive} = ${r.value}`</span>)
+);</pre></div>
+        </div>
+      </div>
+
+      <div class="method-card" id="resolveRecord" data-search="resolverecord resolve lookup record context directive">
+        <div class="method-header"><span class="method-name">resolveRecord()</span><span class="badge badge-query">Query</span></div>
+        <div class="method-body">
+          <p class="method-desc">Resolve a specific record by context and directive. Returns <span class="inline-code">null</span> if no record exists.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain name</td></tr>
+            <tr><td><span class="param-name">docket</span></td><td><span class="param-type">{ context: string, directive: string }</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Context and directive to resolve</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;ResolvedRecordI | null&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">resolveRecord</span>({
+  <span class="hl-prop">domain</span>: <span class="hl-str">'example.xrd'</span>,
+  <span class="hl-prop">docket</span>: { <span class="hl-prop">context</span>: <span class="hl-str">'receivers'</span>, <span class="hl-prop">directive</span>: <span class="hl-str">'*'</span> }
+});
+
+console.<span class="hl-fn">log</span>(result.data?.value); <span class="hl-cm">// "account_rdx..."</span></pre></div>
+        </div>
+      </div>
+
+      <div class="method-card" id="createRecord" data-search="createrecord create record context directive value">
+        <div class="method-header"><span class="method-name">createRecord()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Create a single record on a domain.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain name</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain owner address</td></tr>
+            <tr><td><span class="param-name">docket</span></td><td><span class="param-type">{ context, directive, value }</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Record context, directive, and value</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Transaction lifecycle hooks</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">createRecord</span>({
+  <span class="hl-prop">domain</span>: <span class="hl-str">'example.xrd'</span>,
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>,
+  <span class="hl-prop">docket</span>: {
+    <span class="hl-prop">context</span>: <span class="hl-str">'receivers'</span>,
+    <span class="hl-prop">directive</span>: <span class="hl-str">'*'</span>,
+    <span class="hl-prop">value</span>: <span class="hl-str">'account_rdx_receiver...'</span>
+  }
+});</pre></div>
+        </div>
+      </div>
+
+      <div class="method-card" id="amendRecord" data-search="amendrecord amend update record">
+        <div class="method-header"><span class="method-name">amendRecord()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Update an existing record's value. Same signature as <span class="inline-code">createRecord()</span>.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain name</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Owner address</td></tr>
+            <tr><td><span class="param-name">docket</span></td><td><span class="param-type">{ context, directive, value }</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Updated record docket</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Transaction lifecycle hooks</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="deleteRecord" data-search="deleterecord delete remove record context directive">
+        <div class="method-header"><span class="method-name">deleteRecord()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Delete a record identified by context and directive.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain name</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Owner address</td></tr>
+            <tr><td><span class="param-name">docket</span></td><td><span class="param-type">{ context, directive }</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Record to delete</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Transaction lifecycle hooks</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="deleteRecordById" data-search="deleterecordbyid delete record id">
+        <div class="method-header"><span class="method-name">deleteRecordById()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Delete a record by its unique composite ID (format: <span class="inline-code">"context:directive"</span>).</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">recordId</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Composite record ID</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="createRecords" data-search="createrecords batch create multiple records">
+        <div class="method-header"><span class="method-name">createRecords()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Create multiple records in a single transaction.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">records</span></td><td><span class="param-type">RecordEntryI[]</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Array of <span class="inline-code">{ context, directive, value }</span></td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = <span class="hl-kw">await</span> namespace.<span class="hl-fn">createRecords</span>({
+  <span class="hl-prop">domain</span>: <span class="hl-str">'example.xrd'</span>,
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>,
+  <span class="hl-prop">records</span>: [
+    { <span class="hl-prop">context</span>: <span class="hl-str">'social'</span>, <span class="hl-prop">directive</span>: <span class="hl-str">'twitter'</span>, <span class="hl-prop">value</span>: <span class="hl-str">'@handle'</span> },
+    { <span class="hl-prop">context</span>: <span class="hl-str">'receivers'</span>, <span class="hl-prop">directive</span>: <span class="hl-str">'*'</span>, <span class="hl-prop">value</span>: <span class="hl-str">'account_rdx...'</span> }
+  ]
+});</pre></div>
+        </div>
+      </div>
+
+      <div class="method-card" id="deleteRecords" data-search="deleterecords batch delete multiple records">
+        <div class="method-header"><span class="method-name">deleteRecords()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Delete multiple records in a single transaction.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">records</span></td><td><span class="param-type">RecordRefI[]</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Array of <span class="inline-code">{ context, directive }</span></td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="deleteContextRecords" data-search="deletecontextrecords delete all context records">
+        <div class="method-header"><span class="method-name">deleteContextRecords()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Delete all records within a specific context (e.g., all "social" records).</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">context</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Context to clear (e.g., "social")</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SUBREGISTRY ==================== -->
+    <div class="section" id="section-subregistry">
+      <h2 class="section-title">Subregistry</h2>
+      <p class="section-desc">Manage a domain's subregistry component — icon, dApp definition, domain resource, and replacement.</p>
+
+      <div class="method-card" id="updateSubregistryIcon" data-search="updatesubregistryicon icon subregistry">
+        <div class="method-header"><span class="method-name">updateSubregistryIcon()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Update the icon URL for a domain's subregistry component.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">iconUrl</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">New icon URL</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="updateSubregistryDappDefinition" data-search="updatesubregistrydappdefinition dapp definition subregistry">
+        <div class="method-header"><span class="method-name">updateSubregistryDappDefinition()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Link a dApp definition account to the domain's subregistry.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">dappDefinitionAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">dApp definition account address</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="updateDomainResource" data-search="updatedomainresource domain resource address advanced">
+        <div class="method-header"><span class="method-name">updateDomainResource()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Update the domain resource address on the subregistry. This is an advanced operation.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">newDomainResourceAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">New resource address</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="replaceSubregistry" data-search="replacesubregistry replace subregistry destructive fresh">
+        <div class="method-header"><span class="method-name">replaceSubregistry()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Replace the subregistry with a brand new, empty one. This is a <strong>destructive operation</strong> — all existing subdomains and records will be lost.</p>
+          <div class="callout callout-warn"><strong>Warning:</strong> This permanently removes all subdomains and records from the domain's subregistry.</div>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== REGISTRARS ==================== -->
+    <div class="section" id="section-registrars">
+      <h2 class="section-title">Registrars</h2>
+      <p class="section-desc">Register as a domain service provider, manage registrar info, and withdraw accumulated fees.</p>
+
+      <div class="method-card" id="getAllRegistrars" data-search="getallregistrars list registrars all">
+        <div class="method-header"><span class="method-name">getAllRegistrars()</span><span class="badge badge-query">Query</span></div>
+        <div class="method-body">
+          <p class="method-desc">Retrieve all registrar badge IDs, paginated.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">pagination</span></td><td><span class="param-type">{ page?: number }</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Page number</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;PaginatedRegistrarsResponseI&gt;</div>
+          <div class="response-title">Responses</div>
+          <div class="response-tabs">
+            <button class="response-tab active" data-target="getAllRegistrars-success">Success</button>
+          </div>
+          <div class="response-panel active" id="getAllRegistrars-success">
+            <div class="code-block"><div class="code-block-header"><span class="code-block-label">Success</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre>{
+  <span class="hl-prop">"data"</span>: {
+    <span class="hl-prop">"registrar_ids"</span>: [<span class="hl-str">"#1#"</span>, <span class="hl-str">"#2#"</span>, <span class="hl-str">"#3#"</span>],
+    <span class="hl-prop">"pagination"</span>: { <span class="hl-prop">"next_page"</span>: <span class="hl-bool">null</span>, <span class="hl-prop">"previous_page"</span>: <span class="hl-bool">null</span>, <span class="hl-prop">"total_count"</span>: <span class="hl-num">3</span>, <span class="hl-prop">"current_page_count"</span>: <span class="hl-num">3</span> }
+  }
+}</pre></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="method-card" id="getRegistrarDetails" data-search="getregistrardetails registrar details name fee website">
+        <div class="method-header"><span class="method-name">getRegistrarDetails()</span><span class="badge badge-query">Query</span></div>
+        <div class="method-body">
+          <p class="method-desc">Get details for a specific registrar including name, website, icon, and fee percentage.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">registrarId</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Registrar badge ID</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;RegistrarDetailsI&gt;</div>
+          <div class="response-title">Responses</div>
+          <div class="response-tabs">
+            <button class="response-tab active" data-target="getRegistrarDetails-success">Success</button>
+          </div>
+          <div class="response-panel active" id="getRegistrarDetails-success">
+            <div class="code-block"><div class="code-block-header"><span class="code-block-label">Success</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre>{
+  <span class="hl-prop">"data"</span>: {
+    <span class="hl-prop">"id"</span>: <span class="hl-str">"#1#"</span>,
+    <span class="hl-prop">"name"</span>: <span class="hl-str">"Radix Domains"</span>,
+    <span class="hl-prop">"icon_url"</span>: <span class="hl-str">"https://example.com/icon.png"</span>,
+    <span class="hl-prop">"website_url"</span>: <span class="hl-str">"https://example.com"</span>,
+    <span class="hl-prop">"fee_percentage"</span>: <span class="hl-str">"5"</span>,
+    <span class="hl-prop">"created_at"</span>: <span class="hl-num">1700000000000</span>,
+    <span class="hl-prop">"updated_at"</span>: <span class="hl-num">1700000000000</span>
+  }
+}</pre></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="method-card" id="getRegistrarStats" data-search="getregistrarstats registrar stats statistics domains fees">
+        <div class="method-header"><span class="method-name">getRegistrarStats()</span><span class="badge badge-query">Query</span></div>
+        <div class="method-body">
+          <p class="method-desc">Get performance statistics for a registrar: domain counts, fee accumulation, and withdrawal history.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">registrarId</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Registrar badge ID</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;RegistrarStatsI | null&gt;</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="getRegistrarFeeBalances" data-search="getregistrarfeebalances registrar fee balances vault">
+        <div class="method-header"><span class="method-name">getRegistrarFeeBalances()</span><span class="badge badge-query">Query</span></div>
+        <div class="method-body">
+          <p class="method-desc">Get accumulated fee balances across all accepted tokens for a registrar.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">registrarId</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">pagination</span></td><td><span class="param-type">{ page?: number }</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;PaginatedRegistrarFeesI&gt;</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="registerAsRegistrar" data-search="registerasregistrar register registrar provider">
+        <div class="method-header"><span class="method-name">registerAsRegistrar()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Register your account as an official domain registrar. You'll receive a registrar badge NFT.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">name</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Registrar business name</td></tr>
+            <tr><td><span class="param-name">iconUrl</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Icon URL</td></tr>
+            <tr><td><span class="param-name">websiteUrl</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Website URL</td></tr>
+            <tr><td><span class="param-name">feePercentage</span></td><td><span class="param-type">number</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Fee percentage (e.g., 5 for 5%)</td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="updateRegistrar" data-search="updateregistrar update registrar info name fee">
+        <div class="method-header"><span class="method-name">updateRegistrar()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Update registrar information. All fields except <span class="inline-code">registrarId</span> and <span class="inline-code">accountAddress</span> are optional — only provided fields are updated.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">registrarId</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">name</span></td><td><span class="param-type">string</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+            <tr><td><span class="param-name">iconUrl</span></td><td><span class="param-type">string</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+            <tr><td><span class="param-name">websiteUrl</span></td><td><span class="param-type">string</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+            <tr><td><span class="param-name">feePercentage</span></td><td><span class="param-type">number</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="burnRegistrarBadge" data-search="burnregistrarbadge burn registrar badge revoke">
+        <div class="method-header"><span class="method-name">burnRegistrarBadge()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Permanently revoke registrar status by burning the badge NFT. This is irreversible.</p>
+          <div class="callout callout-warn"><strong>Warning:</strong> This action is permanent and cannot be undone.</div>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">registrarId</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="withdrawRegistrarFees" data-search="withdrawregistrarfees withdraw fees registrar">
+        <div class="method-header"><span class="method-name">withdrawRegistrarFees()</span><span class="badge badge-mutation">Tx</span></div>
+        <div class="method-body">
+          <p class="method-desc">Withdraw accumulated fees. Optionally target a specific resource, or omit to withdraw all.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">registrarId</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">resourceAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Specific resource to withdraw</td></tr>
+            <tr><td><span class="param-name">callbacks</span></td><td><span class="param-type">EventCallbacksI</span></td><td><span class="param-optional">No</span></td><td></td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkTransactionResponseT&lt;TransactionFeedbackStackI&gt;</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== UTILITIES ==================== -->
+    <div class="section" id="section-utilities">
+      <h2 class="section-title">Utilities</h2>
+      <p class="section-desc">Helper methods for validation, cost calculation, and balance checking. Accessed via <span class="inline-code">namespace.utils.*</span>.</p>
+
+      <div class="method-card" id="getCostBreakdown" data-search="getcostbreakdown cost breakdown registration price bond fee">
+        <div class="method-header"><span class="method-name">utils.getCostBreakdown()</span><span class="badge badge-util">Util</span></div>
+        <div class="method-body">
+          <p class="method-desc">Calculate the full cost breakdown for registering a domain: bond amount, registrar fee, and total.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain name</td></tr>
+            <tr><td><span class="param-name">registrarId</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Registrar badge ID</td></tr>
+            <tr><td><span class="param-name">paymentResource</span></td><td><span class="param-type">string</span></td><td><span class="param-optional">No</span></td><td class="param-desc">Payment resource address</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;RegistrationCostBreakdownI&gt;</div>
+          <div class="response-title">Responses</div>
+          <div class="response-tabs">
+            <button class="response-tab active" data-target="getCostBreakdown-success">Success</button>
+          </div>
+          <div class="response-panel active" id="getCostBreakdown-success">
+            <div class="code-block"><div class="code-block-header"><span class="code-block-label">Success</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre>{
+  <span class="hl-prop">"data"</span>: {
+    <span class="hl-prop">"domain"</span>: <span class="hl-str">"example.xrd"</span>,
+    <span class="hl-prop">"bondAmount"</span>: <span class="hl-str">"120"</span>,
+    <span class="hl-prop">"registrarFee"</span>: <span class="hl-str">"6"</span>,
+    <span class="hl-prop">"registrarFeePercentage"</span>: <span class="hl-str">"5"</span>,
+    <span class="hl-prop">"totalAmount"</span>: <span class="hl-str">"126"</span>,
+    <span class="hl-prop">"paymentResource"</span>: <span class="hl-str">"resource_rdx..."</span>,
+    <span class="hl-prop">"registrarId"</span>: <span class="hl-str">"#1#"</span>,
+    <span class="hl-prop">"registrarName"</span>: <span class="hl-str">"Radix Domains"</span>
+  }
+}</pre></div>
+          </div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> costs = <span class="hl-kw">await</span> namespace.utils.<span class="hl-fn">getCostBreakdown</span>({
+  <span class="hl-prop">domain</span>: <span class="hl-str">'example.xrd'</span>,
+  <span class="hl-prop">registrarId</span>: <span class="hl-str">'1'</span>
+});
+
+<span class="hl-kw">if</span> (costs.data) {
+  console.<span class="hl-fn">log</span>(<span class="hl-str">`Total: ${costs.data.totalAmount}`</span>);
+}</pre></div>
+        </div>
+      </div>
+
+      <div class="method-card" id="getAcceptedBondTokens" data-search="getacceptedbondtokens accepted bond tokens payment resources">
+        <div class="method-header"><span class="method-name">utils.getAcceptedBondTokens()</span><span class="badge badge-util">Util</span></div>
+        <div class="method-body">
+          <p class="method-desc">Get the list of accepted payment resources for domain registration bonds, with full metadata. Results are cached after first call.</p>
+          <div class="params-title">Parameters</div>
+          <p class="method-desc" style="margin-bottom:16px"><em>No parameters.</em></p>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;ResourceDetailsI[]&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> tokens = <span class="hl-kw">await</span> namespace.utils.<span class="hl-fn">getAcceptedBondTokens</span>();
+
+tokens.data?.<span class="hl-fn">forEach</span>(t =&gt;
+  console.<span class="hl-fn">log</span>(<span class="hl-str">`${t.name} (${t.symbol})`</span>)
+);</pre></div>
+        </div>
+      </div>
+
+      <div class="method-card" id="getAccountBondBalances" data-search="getaccountbondbalances account bond balances">
+        <div class="method-header"><span class="method-name">utils.getAccountBondBalances()</span><span class="badge badge-util">Util</span></div>
+        <div class="method-body">
+          <p class="method-desc">Get current balances for all accepted bond tokens in a user's account.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;AccountBondBalancesResultI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> balances = <span class="hl-kw">await</span> namespace.utils.<span class="hl-fn">getAccountBondBalances</span>({
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>
+});
+
+balances.data?.balances.<span class="hl-fn">forEach</span>(b =&gt;
+  console.<span class="hl-fn">log</span>(<span class="hl-str">`${b.resource.symbol}: ${b.balance}`</span>)
+);</pre></div>
+        </div>
+      </div>
+
+      <div class="method-card" id="checkAccountBondAffordability" data-search="checkaccountbondaffordability check afford bond sufficient insufficient">
+        <div class="method-header"><span class="method-name">utils.checkAccountBondAffordability()</span><span class="badge badge-util">Util</span></div>
+        <div class="method-body">
+          <p class="method-desc">Check which tokens have sufficient balance for a required bond amount. Pair with <span class="inline-code">getCostBreakdown()</span> for a complete affordability check.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+            <tr><td><span class="param-name">requiredAmount</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Total amount needed (from getCostBreakdown)</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">SdkResponseT&lt;BondAffordabilityResultI&gt;</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> check = <span class="hl-kw">await</span> namespace.utils.<span class="hl-fn">checkAccountBondAffordability</span>({
+  <span class="hl-prop">accountAddress</span>: <span class="hl-str">'account_rdx...'</span>,
+  <span class="hl-prop">requiredAmount</span>: <span class="hl-str">'126'</span>
+});
+
+<span class="hl-kw">if</span> (check.data?.sufficientBalances.length &gt; <span class="hl-num">0</span>) {
+  console.<span class="hl-fn">log</span>(<span class="hl-str">'Can afford with:'</span>, check.data.sufficientBalances);
+}</pre></div>
+        </div>
+      </div>
+
+      <div class="method-card" id="validateDomain" data-search="validatedomain validate domain format rules">
+        <div class="method-header"><span class="method-name">utils.validateDomain()</span><span class="badge badge-util">Util</span></div>
+        <div class="method-body">
+          <p class="method-desc">Validate that a domain name follows the correct format and naming rules. Synchronous.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Domain to validate</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">UtilValidationT — { isValid: boolean, errors?: ErrorI[] }</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> result = namespace.utils.<span class="hl-fn">validateDomain</span>({ <span class="hl-prop">domain</span>: <span class="hl-str">'example.xrd'</span> });
+console.<span class="hl-fn">log</span>(result.isValid); <span class="hl-cm">// true</span></pre></div>
+        </div>
+      </div>
+
+      <div class="method-card" id="validateSubdomain" data-search="validatesubdomain validate subdomain format">
+        <div class="method-header"><span class="method-name">utils.validateSubdomain()</span><span class="badge badge-util">Util</span></div>
+        <div class="method-body">
+          <p class="method-desc">Validate subdomain format and naming rules. Synchronous.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">subdomain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">Subdomain to validate</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">UtilValidationT</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="validateAccountAddress" data-search="validateaccountaddress validate account address network">
+        <div class="method-header"><span class="method-name">utils.validateAccountAddress()</span><span class="badge badge-util">Util</span></div>
+        <div class="method-body">
+          <p class="method-desc">Validate that an account address is properly formatted for the current network. Synchronous.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">accountAddress</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td></td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">UtilValidationT</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="getRootFromSubdomain" data-search="getrootfromsubdomain extract root domain subdomain">
+        <div class="method-header"><span class="method-name">utils.getRootFromSubdomain()</span><span class="badge badge-util">Util</span></div>
+        <div class="method-body">
+          <p class="method-desc">Extract the root domain from a subdomain string. Returns <span class="inline-code">null</span> if the input is not a valid subdomain.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">subdomain</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">e.g., "blog.example.xrd"</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">string | null</div>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">const</span> root = namespace.utils.<span class="hl-fn">getRootFromSubdomain</span>({
+  <span class="hl-prop">subdomain</span>: <span class="hl-str">'blog.example.xrd'</span>
+});
+console.<span class="hl-fn">log</span>(root); <span class="hl-cm">// "example.xrd"</span></pre></div>
+        </div>
+      </div>
+
+      <div class="method-card" id="isSubdomain" data-search="issubdomain check subdomain boolean">
+        <div class="method-header"><span class="method-name">utils.isSubdomain()</span><span class="badge badge-util">Util</span></div>
+        <div class="method-body">
+          <p class="method-desc">Check if a given string is a subdomain. Synchronous, returns <span class="inline-code">boolean</span>.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domainEntity</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">String to check</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">boolean</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="isRootDomain" data-search="isrootdomain check root domain boolean">
+        <div class="method-header"><span class="method-name">utils.isRootDomain()</span><span class="badge badge-util">Util</span></div>
+        <div class="method-body">
+          <p class="method-desc">Check if a given string is a root domain. Synchronous, returns <span class="inline-code">boolean</span>.</p>
+          <div class="params-title">Parameters</div>
+          <table class="params-table"><thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>
+            <tr><td><span class="param-name">domainEntity</span></td><td><span class="param-type">string</span></td><td><span class="param-required">Yes</span></td><td class="param-desc">String to check</td></tr>
+          </tbody></table>
+          <div class="returns-title">Returns</div>
+          <div class="returns-type">boolean</div>
+        </div>
+      </div>
+
+      <div class="method-card" id="clearAllCaches" data-search="clearallcaches clear cache resource bond tokens">
+        <div class="method-header"><span class="method-name">clearAllCaches()</span><span class="badge badge-cache">Cache</span></div>
+        <div class="method-body">
+          <p class="method-desc">Clear all SDK caches. Also available: <span class="inline-code">clearResourceDetailsCache()</span> and <span class="inline-code">clearAcceptedBondTokensCache()</span>. These are <strong>standalone exports</strong>, not methods on the SDK instance.</p>
+          <div class="code-block"><div class="code-block-header"><span class="code-block-label">Example</span><button class="code-copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button></div>
+<pre><span class="hl-kw">import</span> {
+  clearAllCaches,
+  clearResourceDetailsCache,
+  clearAcceptedBondTokensCache
+} <span class="hl-kw">from</span> <span class="hl-str">'@radixnamespace/typescript-sdk'</span>;
+
+<span class="hl-cm">// Clear everything</span>
+<span class="hl-fn">clearAllCaches</span>();
+
+<span class="hl-cm">// Or clear individually</span>
+<span class="hl-fn">clearResourceDetailsCache</span>();
+<span class="hl-fn">clearAcceptedBondTokensCache</span>();</pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TYPES REFERENCE ==================== -->
+    <div class="section" id="types-reference">
+      <h2 class="section-title">Types Reference</h2>
+      <p class="section-desc">Key TypeScript interfaces and types exported by the SDK.</p>
+
+      <div class="type-block open">
+        <div class="type-block-header">
+          <span class="type-block-name">SdkResponseT&lt;T&gt;</span>
+          <span class="type-block-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
+        </div>
+        <div class="type-block-body">
+          <div class="code-block"><pre><span class="hl-kw">type</span> <span class="hl-type">SdkResponseT</span>&lt;T&gt; =
+  | { <span class="hl-prop">data</span>: T; <span class="hl-prop">errors</span>?: <span class="hl-bool">undefined</span> }
+  | { <span class="hl-prop">data</span>?: <span class="hl-bool">undefined</span>; <span class="hl-prop">errors</span>: <span class="hl-type">ErrorI</span>[] };</pre></div>
+        </div>
+      </div>
+
+      <div class="type-block open">
+        <div class="type-block-header">
+          <span class="type-block-name">SdkTransactionResponseT&lt;T&gt;</span>
+          <span class="type-block-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
+        </div>
+        <div class="type-block-body">
+          <div class="code-block"><pre><span class="hl-kw">type</span> <span class="hl-type">SdkTransactionResponseT</span>&lt;T&gt; =
+  | { <span class="hl-prop">feedback</span>: T; <span class="hl-prop">errors</span>?: <span class="hl-bool">undefined</span> }
+  | { <span class="hl-prop">feedback</span>?: <span class="hl-bool">undefined</span>; <span class="hl-prop">errors</span>: <span class="hl-type">ErrorI</span>[] };</pre></div>
+        </div>
+      </div>
+
+      <div class="type-block">
+        <div class="type-block-header">
+          <span class="type-block-name">ErrorI</span>
+          <span class="type-block-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
+        </div>
+        <div class="type-block-body">
+          <div class="code-block"><pre><span class="hl-kw">interface</span> <span class="hl-type">ErrorI</span> {
+  <span class="hl-prop">code</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">error</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">verbose</span>: <span class="hl-type">string</span> | <span class="hl-bool">null</span>;
+}</pre></div>
+        </div>
+      </div>
+
+      <div class="type-block">
+        <div class="type-block-header">
+          <span class="type-block-name">DomainDataI</span>
+          <span class="type-block-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
+        </div>
+        <div class="type-block-body">
+          <div class="code-block"><pre><span class="hl-kw">interface</span> <span class="hl-type">DomainDataI</span> {
+  <span class="hl-prop">id</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">name</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">current_activated_owner</span>: <span class="hl-type">string</span> | <span class="hl-bool">null</span>;
+  <span class="hl-prop">bond</span>: { <span class="hl-prop">resource</span>: <span class="hl-type">ResourceDetailsI</span>; <span class="hl-prop">amount</span>: <span class="hl-type">Decimal</span> };
+  <span class="hl-prop">subregistry_component_address</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">key_image_url</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">created_timestamp</span>: <span class="hl-type">number</span>;
+  <span class="hl-prop">issuer_registrar_id</span>: <span class="hl-type">string</span> | <span class="hl-bool">null</span>;
+  <span class="hl-prop">subdomain_count</span>?: <span class="hl-type">number</span>;
+  <span class="hl-prop">record_count</span>?: <span class="hl-type">number</span>;
+}</pre></div>
+        </div>
+      </div>
+
+      <div class="type-block">
+        <div class="type-block-header">
+          <span class="type-block-name">SubDomainDataI</span>
+          <span class="type-block-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
+        </div>
+        <div class="type-block-body">
+          <div class="code-block"><pre><span class="hl-kw">interface</span> <span class="hl-type">SubDomainDataI</span> {
+  <span class="hl-prop">name</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">full_name</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">created_timestamp</span>: <span class="hl-type">number</span>;
+  <span class="hl-prop">updated_timestamp</span>: <span class="hl-type">number</span>;
+  <span class="hl-prop">metadata</span>: Record&lt;<span class="hl-type">string</span>, <span class="hl-type">string</span>&gt;;
+}</pre></div>
+        </div>
+      </div>
+
+      <div class="type-block">
+        <div class="type-block-header">
+          <span class="type-block-name">RecordItemI</span>
+          <span class="type-block-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
+        </div>
+        <div class="type-block-body">
+          <div class="code-block"><pre><span class="hl-kw">interface</span> <span class="hl-type">RecordItemI</span> {
+  <span class="hl-prop">context</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">directive</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">value</span>: <span class="hl-type">string</span> | <span class="hl-bool">null</span>;
+  <span class="hl-prop">record_id</span>?: <span class="hl-type">string</span>;
+  <span class="hl-prop">domain_name</span>?: <span class="hl-type">string</span>;
+}</pre></div>
+        </div>
+      </div>
+
+      <div class="type-block">
+        <div class="type-block-header">
+          <span class="type-block-name">ResourceDetailsI</span>
+          <span class="type-block-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
+        </div>
+        <div class="type-block-body">
+          <div class="code-block"><pre><span class="hl-kw">interface</span> <span class="hl-type">ResourceDetailsI</span> {
+  <span class="hl-prop">address</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">type</span>: <span class="hl-str">'fungible'</span> | <span class="hl-str">'non-fungible'</span>;
+  <span class="hl-prop">name</span>: <span class="hl-type">string</span> | <span class="hl-bool">null</span>;
+  <span class="hl-prop">symbol</span>: <span class="hl-type">string</span> | <span class="hl-bool">null</span>;
+  <span class="hl-prop">description</span>: <span class="hl-type">string</span> | <span class="hl-bool">null</span>;
+  <span class="hl-prop">tags</span>: <span class="hl-type">string</span>[];
+  <span class="hl-prop">icon_url</span>: <span class="hl-type">string</span> | <span class="hl-bool">null</span>;
+  <span class="hl-prop">info_url</span>: <span class="hl-type">string</span> | <span class="hl-bool">null</span>;
+}</pre></div>
+        </div>
+      </div>
+
+      <div class="type-block">
+        <div class="type-block-header">
+          <span class="type-block-name">RegistrarDetailsI</span>
+          <span class="type-block-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
+        </div>
+        <div class="type-block-body">
+          <div class="code-block"><pre><span class="hl-kw">interface</span> <span class="hl-type">RegistrarDetailsI</span> {
+  <span class="hl-prop">id</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">name</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">icon_url</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">website_url</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">fee_percentage</span>: <span class="hl-type">Decimal</span>;
+  <span class="hl-prop">created_at</span>: <span class="hl-type">number</span>;
+  <span class="hl-prop">updated_at</span>: <span class="hl-type">number</span>;
+}</pre></div>
+        </div>
+      </div>
+
+      <div class="type-block">
+        <div class="type-block-header">
+          <span class="type-block-name">PaginationInfoI</span>
+          <span class="type-block-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
+        </div>
+        <div class="type-block-body">
+          <div class="code-block"><pre><span class="hl-kw">interface</span> <span class="hl-type">PaginationInfoI</span> {
+  <span class="hl-prop">next_page</span>: <span class="hl-type">number</span> | <span class="hl-bool">null</span>;
+  <span class="hl-prop">previous_page</span>: <span class="hl-type">number</span> | <span class="hl-bool">null</span>;
+  <span class="hl-prop">total_count</span>: <span class="hl-type">number</span>;
+  <span class="hl-prop">current_page_count</span>: <span class="hl-type">number</span>;
+}</pre></div>
+        </div>
+      </div>
+
+      <div class="type-block">
+        <div class="type-block-header">
+          <span class="type-block-name">EventCallbacksI</span>
+          <span class="type-block-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
+        </div>
+        <div class="type-block-body">
+          <div class="code-block"><pre><span class="hl-kw">interface</span> <span class="hl-type">EventCallbacksI</span> {
+  <span class="hl-prop">onInit</span>?: Function;
+  <span class="hl-prop">onSuccess</span>?: Function;
+  <span class="hl-prop">onFail</span>?: Function;
+  <span class="hl-prop">onAppApproved</span>?: Function;
+  <span class="hl-prop">onIntentReceipt</span>?: Function;
+}</pre></div>
+        </div>
+      </div>
+
+      <div class="type-block">
+        <div class="type-block-header">
+          <span class="type-block-name">RegistrationCostBreakdownI</span>
+          <span class="type-block-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
+        </div>
+        <div class="type-block-body">
+          <div class="code-block"><pre><span class="hl-kw">interface</span> <span class="hl-type">RegistrationCostBreakdownI</span> {
+  <span class="hl-prop">domain</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">bondAmount</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">registrarFee</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">registrarFeePercentage</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">totalAmount</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">paymentResource</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">registrarId</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">registrarName</span>: <span class="hl-type">string</span>;
+}</pre></div>
+        </div>
+      </div>
+
+      <div class="type-block">
+        <div class="type-block-header">
+          <span class="type-block-name">AccountSettingsResultI</span>
+          <span class="type-block-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
+        </div>
+        <div class="type-block-body">
+          <div class="code-block"><pre><span class="hl-kw">interface</span> <span class="hl-type">AccountSettingsResultI</span> {
+  <span class="hl-prop">primaryDomain</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">discoveryEnabled</span>: <span class="hl-type">boolean</span>;
+  <span class="hl-prop">isAuthentic</span>: <span class="hl-type">boolean</span>;
+  <span class="hl-prop">accountAddress</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">domainDetails</span>: <span class="hl-type">DomainDataI</span> | <span class="hl-bool">null</span>;
+}</pre></div>
+        </div>
+      </div>
+
+      <div class="type-block">
+        <div class="type-block-header">
+          <span class="type-block-name">ImportDomainI</span>
+          <span class="type-block-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></span>
+        </div>
+        <div class="type-block-body">
+          <div class="code-block"><pre><span class="hl-kw">interface</span> <span class="hl-type">ImportDomainI</span> {
+  <span class="hl-prop">name</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">id</span>: <span class="hl-type">string</span>;
+  <span class="hl-prop">address</span>: <span class="hl-type">string</span> | <span class="hl-bool">null</span>;
+  <span class="hl-prop">created_timestamp</span>: <span class="hl-type">number</span>;
+  <span class="hl-prop">last_valid_timestamp</span>: <span class="hl-type">number</span> | <span class="hl-bool">null</span>;
+  <span class="hl-prop">deposit_amount</span>: { <span class="hl-prop">resource</span>: <span class="hl-type">string</span>; <span class="hl-prop">amount</span>: <span class="hl-type">string</span> } | <span class="hl-bool">null</span>;
+  <span class="hl-prop">primary_domain</span>: <span class="hl-type">string</span> | <span class="hl-bool">null</span>;
+  <span class="hl-prop">key_image_url</span>: <span class="hl-type">string</span>;
+}</pre></div>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /main-content -->
+</main>
+</div><!-- /layout -->
+
+<!-- Back to top -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+
+<script src="js/app.js"></script>
+</body>
+</html>
